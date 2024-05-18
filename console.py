@@ -1,6 +1,9 @@
+#!/usr/bin/python3
+
 import shlex
 import cmd
-from models import BaseModel, storage
+from models import storage
+from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
 	"""Command interpreter for HBNB"""
@@ -41,17 +44,17 @@ class HBNBCommand(cmd.Cmd):
 	def do_destroy(self, args):
 		"""Deletes an instance based on the class name and id."""
 		rgs_list = shlex.split(args)
-                if len(args_list) == 0:
+		if len(args_list) == 0:
                         print("** class name missing **")
                         return
-                if len(args_list) == 1:
+		if len(args_list) == 1:
                         print("** instance id missing **")
                         return
-                if args_list[0] not in self.classes:
+		if args_list[0] not in self.classes:
                         print("** class doesn't exist **")
                         return
-                key_args = "{}.{}".format(args_list[0], args_list[1])
-                if key_args not in storage.all():
+		key_args = "{}.{}".format(args_list[0], args_list[1])
+		if key_args not in storage.all():
                         print("** no instance found **")
                         return
 		del storage.all()[key_args]
